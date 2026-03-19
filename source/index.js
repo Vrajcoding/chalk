@@ -156,10 +156,14 @@ const createBuilder = (self, _styler, _isEmpty) => {
 		// Fast path for common 2 argument
 		// Using `== null` to handle both null and undefined
 		// and using String() for other values to preserve toString() coercion
-		(arguments_.length === 1) ? ('' + arguments_[0]) : (arguments_.length === 2) ? (
-			(arguments_[0] == null ? '' : String(arguments_[0])) + ' ' +
-			(arguments_[1] == null ? '' : String(arguments_[1]))
-		) : arguments_.join(' ')
+		arguments_.length === 1
+			? String(arguments_[0])
+			: (arguments_.length === 2)
+				? (
+					(arguments_[0] === null || arguments_[0] === undefined ? '' : String(arguments_[0])) + ' ' +
+					(arguments_[1] === null || arguments_[1] === undefined ? '' : String(arguments_[1]))
+				)
+				: arguments_.join(' ')
 	);
 
 	// We alter the prototype because we must return a function, but there is
